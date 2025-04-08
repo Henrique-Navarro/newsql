@@ -1,0 +1,19 @@
+{
+  "name": "newsql/project",
+  "description": "NewSQL - custom PHP SQL language project",
+  "type": "project",
+  "require": {
+    "symfony/var-dumper": "^7.2"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "NewSQL\\": "src/"
+    },
+    "files": [
+      "src/Support/helpers.php"
+    ]
+  }
+}
