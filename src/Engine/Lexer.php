@@ -15,10 +15,14 @@ class Lexer {
     /**
      * @return Token[]
      */
-    public function tokenize(string $input): array
+    public function tokenize(string|array $input): array
     {
         $tokens = [];
     
+        if(is_array($input)) {
+            $input = implode(" ", $input);
+        }
+
         $matches = PatternHelper::getMatches($input);
     
         foreach ($matches as $token) {

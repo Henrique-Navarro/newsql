@@ -2,6 +2,7 @@
 
 namespace NewSQL\Token;
 
+use NewSQL\Exception\IllegalCharacterException;
 use NewSQL\Pattern\PatternHelper;
 
 class TokenService {
@@ -26,7 +27,6 @@ class TokenService {
             return TokenType::NUMBER;
         }
         
-        return TokenType::EOF;
-        // throw new IllegalCharacter($token);
+        throw new IllegalCharacterException($token);
     }
 }

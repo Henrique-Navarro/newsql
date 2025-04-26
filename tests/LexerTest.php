@@ -129,12 +129,55 @@ class LexerTest extends TestCase
         }
     }
 
-    // public function test_syntax_error()
-    // {
+    public function test_empty_query()
+    {
+        $query = "";
 
-    // }
+        $lexer = new Lexer();
+        $tokens = $lexer->tokenize($query);
 
+        $expectedTypes = [
+            TokenType::EOF
+        ];
 
+        $this->assertCount(count($expectedTypes), $tokens);
+        echo "✅ Successfully tokenized '".count($expectedTypes)."' tokens, expected '".count($tokens)."' tokens\n";
+
+        foreach ($tokens as $index => $token) {
+            $this->assertEquals($expectedTypes[$index], $token->getType(), "Mismatch at token index $index.");
+            echo "✅ Successfully tokenized '".$token->getValue()."' as '".$expectedTypes[$index]->value."'.\n";
+        }
+    }
+
+    public function test_eof_token__type_at_end()
+    {
+        $query = "              ";
+
+        $lexer = new Lexer();
+        $tokens = $lexer->tokenize($query);
+
+        $expectedTypes = [
+            TokenType::EOF
+        ];
+
+        $this->assertCount(count($expectedTypes), $tokens);
+        $this->assertEquals(reset($tokens)->getType(), TokenType::EOF);
+    }
+
+    public function test_illegal_character_exception()
+    {
+        $this->expectException(\NewSQL\Exception\IllegalCharacterException::class);
+        $this->expectExceptionMessageMatches('/Illegal character encountered:/');
+
+        $query = "!@#$%¨&*(){^}^``^Ç^Ç^}}}:<>^::>!@<>#";
+
+        $lexer = new Lexer();
+        $lexer->tokenize($query);
+
+        $this->fail('Expected IllegalCharacterException was not thrown.');
+    }
+
+    
     private function getAllTokenTypes(): array
     {
         $query = [];
