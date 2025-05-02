@@ -52,11 +52,11 @@ enum TokenType: string {
     case IDENTIFIER = 'IDENTIFIER';
 
     // Símbolos
-    case ABRE_PARENTESES = '(';
-    case FECHA_PARENTESES = ')';
-    case VIRGULA = ',';
-    case PONTO_VIRGULA = ';';
-    case ASTERISCO = '*';
+    case OPEN_PARENTHESIS = '(';
+    case CLOSE_PARENTHESIS = ')';
+    case COMMA = ',';
+    case SEMICOLON = ';';
+    case ASTERISK = '*';
     case EQUAL = '=';
 
     // Número
