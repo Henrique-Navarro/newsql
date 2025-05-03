@@ -10,6 +10,7 @@ use NewSQL\AbstractSyntaxTree\ConditionNode;
 use NewSQL\AbstractSyntaxTree\DistinctNode;
 use NewSQL\AbstractSyntaxTree\select_statement;
 use NewSQL\AbstractSyntaxTree\TableNode;
+use NewSQL\Statement\CreateStatement;
 use NewSQL\Statement\SelectStatement;
 use NewSQL\Statement\SelectStatement2;
 use NewSQL\Statement\UseStatement;
@@ -28,16 +29,17 @@ class Parser {
     /**
      * @param Token[] $tokens
      */
-    public function parse(array $tokens)
+    public function parse(array $tokens): array
     {
         $this->tokens = $tokens;
+        $statements = [];
 
         while (!$this->isAtEnd()) {
-            $root = $this->parseStatement();
+            $statements[] = $this->parseStatement();
         }
 
         // retornar 'Node' generico;
-        return $root;
+        return $statements;
     }
 
     public function isAtEnd(): bool
@@ -107,7 +109,7 @@ class Parser {
             TokenType::USE => (new UseStatement($this))->parse_use_statement(),
             // TokenType::DROP => (new DropStatement($this))->parseDropStatement(),
             // TokenType::SHOW => (new ShowStatement($this))->parseShowStatement(),
-            // TokenType::CREATE => (new CreateStatement($this))->parseCreateStatement(),
+            TokenType::CREATE => (new CreateStatement($this))->parse_create_statement(),
             // DESCRIBE
             // UPDATE
 

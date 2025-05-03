@@ -4,3 +4,4 @@
 *.lock
 /src/Support/
 *.phpunit.result.cache
+catalog.json

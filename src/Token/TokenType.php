@@ -18,7 +18,8 @@ enum TokenType: string {
     case ALTER = 'ALTER';
     case DROP = 'DROP';
     case TABLE = 'TABLE';
-    
+    case DATABASE = 'DATABASE';
+
     // Condições
     case AND = 'AND';
     case OR = 'OR';
